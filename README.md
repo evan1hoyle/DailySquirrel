@@ -13,7 +13,7 @@ SENDER_PASSWORD = 'XXXXXXXXXXXXXXXXXXXXXXXXXXXX'
 HISTORY_FILE = 'sent_squirrels.txt'
 LOG_FILE = 'squirrel_log.txt'
 RECIPIENTS = [
-    'example@example.com'
+    'example@example.com',
     'example@example.com'
 ]
 
