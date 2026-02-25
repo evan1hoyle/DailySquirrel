@@ -17,6 +17,8 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
+now = lambda: datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
 
 
 def get_unique_squirrel():
@@ -27,7 +29,6 @@ def get_unique_squirrel():
         sent_ids = []
 
     for _ in range(5):
-        # Using a random sig to bypass API caching
         url = f"https://api.unsplash.com/photos/random?query=squirrel&client_id={UNSPLASH_ACCESS_KEY}&sig={os.urandom(8).hex()}"
         try:
             response = requests.get(url, timeout=10)
@@ -72,6 +73,7 @@ def send_email(image_url,email):
         logging.info(f"IMAGE URL: {image_url}")
     except Exception as e:
         logging.error(f"FAILED to send email: {e}")
+        raise e
 
 if __name__ == "__main__":
     logging.info("--- Squirrel Script Started ---")
@@ -79,8 +81,8 @@ if __name__ == "__main__":
     if img:
         for person in RECIPIENTS:
             send_email(img,person)
-        print("Squirrel dispatched successfully!")
+        print(f"[{now()}] Squirrel dispatched successfully!")
     else:
-        print("Failed to find a squirrel. They must be hiding.")
+        print(f"[{now()}] Failed to find a squirrel. They must be hiding.")
         logging.warning("Script ended early because no image was found.")
     logging.info("--- Squirrel Script Finished ---")

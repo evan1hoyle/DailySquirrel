@@ -2,3 +2,4 @@ config.py
 squirrel_log.txt
 sent_squirrels.txt
 __pycache__*
+*.log
