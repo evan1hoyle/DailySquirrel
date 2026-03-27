@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Whimsical World of Chester Acornson</title>
+    <style>
+        :root {
+            --forest-green: #4e6e5d;
+            --berry-red: #b33939;
+            --acorn-tan: #d2b48c;
+            --magic-gold: #ffd700;
+            --bg-color: #fdfae6;
+            --card-bg: #ffffff;
+            --text-color: #3d2b1f;
+            --polaroid-bg: #ffffff;
+        }
+
+        body.moonlight {
+            --forest-green: #ffffff;   /* Pure white headers */
+            --berry-red: #ff7675;
+            --bg-color: #1a252f;       /* Deep midnight blue */
+            --card-bg: rgba(44, 62, 80, 0.9); /* Translucent dark slate */
+            --text-color: #ffffff;     /* Pure white text */
+            --acorn-tan: #57606f;
+            --polaroid-bg: #2c3e50;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#e0dcc0 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-color);
+            font-family: 'Trebuchet MS', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            transition: background-color 0.8s ease, color 0.8s ease;
+        }
+
+        /* The Big Sun/Moon */
+        #sky-icon {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            font-size: 4rem;
+            z-index: 1000;
+            pointer-events: none;
+            transition: transform 1s ease, filter 1s ease;
+            filter: drop-shadow(0 0 10px var(--magic-gold));
+        }
+
+        body.moonlight #sky-icon {
+            transform: rotate(360deg);
+            filter: drop-shadow(0 0 20px #fff);
+        }
+
+        /* Ensure all text flips to white in moonlight */
+        body.moonlight, 
+        body.moonlight p, 
+        body.moonlight li, 
+        body.moonlight span, 
+        body.moonlight div:not(.stat-badge) {
+            color: #ffffff !important;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem 1.5rem;
+            background: linear-gradient(rgba(78, 110, 93, 0.15), transparent);
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            margin: 0.5rem 0;
+            color: var(--forest-green);
+            text-shadow: 1px 1px rgba(0,0,0,0.1);
+            transform: rotate(-1deg);
+        }
+
+        .main-content {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 3px dashed var(--acorn-tan);
+            border-radius: 30px 10px 30px 10px;
+            padding: 1.5rem;
+            box-shadow: 5px 5px 0px var(--forest-green);
+            transition: all 0.5s ease;
+            backdrop-filter: blur(5px); /* Adds a nice frosted look at night */
+        }
+        body.moonlight .stat-badge {
+            background: var(--acorn-tan); /* Use the moonlight-specific acorn-tan (slate gray) */
+            color: #ffffff;
+            border: 1px solid var(--magic-gold); /* Add a little magical glow */
+            box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+        }
+
+        h2, h3 {
+            color: var(--forest-green);
+            margin-top: 0;
+            border-bottom: 2px dotted rgba(0,0,0,0.1);
+            padding-bottom: 5px;
+        }
+
+        body.moonlight h2, body.moonlight h3 {
+            border-bottom-color: rgba(255,255,255,0.2);
+        }
+
+        /* Toggle Button Style */
+        .btn-moonlight {
+            background: var(--forest-green);
+            color: var(--bg-color);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        /* Leaf Animation */
+        .leaf { position: fixed; top: -50px; font-size: 24px; z-index: 10; animation: fall linear infinite; cursor: pointer; user-select: none; }
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        /* Gallery Styling */
+        .selfie-gallery { display: flex; overflow-x: auto; gap: 15px; padding: 10px 5px; scrollbar-width: none; }
+        .selfie-gallery::-webkit-scrollbar { display: none; }
+        .polaroid { 
+            background: var(--polaroid-bg); /* Changed from 'white' */
+            border: 3px dashed var(--acorn-tan); 
+            border-radius: 20px; 
+            padding: 10px; 
+            flex: 0 0 160px; 
+            transform: rotate(var(--r)); 
+            transition: background 0.8s ease; /* Makes the color fade in nicely */
+        }
+        .polaroid img { width: 100%; border-radius: 15px; }
+
+        .btn-squeak {
+            background: var(--berry-red);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            width: 100%;
+            font-weight: bold;
+            box-shadow: 0 4px var(--acorn-tan);
+        }
+        
+        .stat-badge { background: var(--forest-green); color: white; padding: 6px 12px; border-radius: 15px; font-size: 0.8rem; }
+    </style>
+</head>
+<body id="main-body">
+
+    <div id="sky-icon">☀️</div>
+
+    <header>
+        <button id="moon-btn" class="btn-moonlight" onclick="toggleMoonlight()">🌙 Switch to Moonlight</button>
+        <br>
+        <span class="wand-sparkle">✦ TALES FROM THE HOLLOW ✦</span>
+        <h1>Chester Acornson</h1>
+        <p><em>Archivist of the Whispering Woods</em></p>
+    </header>
+
+    <main class="main-content">
+        <section class="card">
+            <h2>The Secret Origin</h2>
+            <p class="backstory-text">
+                Chester didn't just find his way into the woods; he was practically *summoned*. Legend says he discovered a forgotten library inside a hollowed-out Cedar and taught himself the ancient art of "Branch Navigation."
+            </p>
+            <p><strong>Current Stash:</strong> <span id="nut-stash" style="color:var(--berry-red); font-weight:bold;">0</span> Acorns collected!</p>
+        </section>
+
+        <section class="card">
+            <h3>Chester's Squirrel-fies</h3>
+            <div class="selfie-gallery">
+                <div class="polaroid" style="--r: -2deg;"><img src="pics/squirrel.jpg" alt="pic"></div>
+                <div class="polaroid" style="--r: 3deg;"><img src="pics/squirrel1.jpg" alt="pic"></div>
+                <div class="polaroid" style="--r: -1deg;"><img src="pics/squirrel2.jpg" alt="pic"></div>
+                <div class="polaroid" style="--r: 2deg;"><img src="pics/squirrel3.jpg" alt="pic"></div>
+            </div>
+        </section>
+
+        <section class="card">
+            <h3>Magical Skills</h3>
+            <div class="badge-container">
+                <span class="stat-badge">Telepathic Chattering</span>
+                <span class="stat-badge">Moonlight Parkour</span>
+                <span class="stat-badge">Nut Appraisal</span>
+                <span class="stat-badge">Fluff Mastery</span>
+            </div>
+        </section>
+
+        <section class="card">
+            <h3>The Daily To-Do</h3>
+            <ul class="daily-list" style="list-style-type: '🌰 '; line-height: 1.8;">
+                <li>Polish the Silver Acorn</li>
+                <li>Debate with a Grumpy Owl</li>
+                <li>Mandatory Nap</li>
+            </ul>
+        </section>
+
+        <button class="btn-squeak" onclick="alert('Squeak! Chester is currently busy burying secrets. Check back later!')">SEND A SQUEAK</button>
+    </main>
+
+    <script>
+        let nutCount = 0;
+
+        function toggleMoonlight() {
+            const body = document.getElementById('main-body');
+            const btn = document.getElementById('moon-btn');
+            const skyIcon = document.getElementById('sky-icon');
+            body.classList.toggle('moonlight');
+            if(body.classList.contains('moonlight')) {
+                btn.innerText = "☀️ Switch to Day";
+                skyIcon.innerText = "🌙";
+            } else {
+                btn.innerText = "🌙 Switch to Moonlight";
+                skyIcon.innerText = "☀️";
+            }
+        }
+        function createLeaf() {
+            const emojis = ['🍂', '🍃', '🍁', '🌰'];
+            const leaf = document.createElement('div');
+            leaf.className = 'leaf';
+            leaf.style.left = Math.random() * 100 + 'vw';
+            leaf.style.animationDuration = Math.random() * 3 + 4 + 's';
+            const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+            leaf.innerText = emoji;
+            leaf.onclick = () => {
+                if (emoji === '🌰') {
+                    nutCount++;
+                    document.getElementById('nut-stash').innerText = nutCount;
+                }
+                leaf.remove();
+            };
+            document.body.appendChild(leaf);
+            setTimeout(() => leaf.remove(), 7000);
+        }
+
+        setInterval(createLeaf, 800);
+
+        window.onload = () => {
+            const hour = new Date().getHours();
+            if (hour >= 18 || hour < 6) toggleMoonlight();
+        };
+    </script>
+</body>
+</html>
