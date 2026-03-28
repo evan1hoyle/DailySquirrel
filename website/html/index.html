@@ -41,13 +41,17 @@
         /* The Big Sun/Moon */
         #sky-icon {
             position: fixed;
-            top: 15px;
-            right: 15px;
-            font-size: 4rem;
+            top: 10px;
+            right: 10px;
+            font-size: 3rem; /* Slightly smaller for mobile */
             z-index: 1000;
             pointer-events: none;
             transition: transform 1s ease, filter 1s ease;
             filter: drop-shadow(0 0 10px var(--magic-gold));
+        }
+
+        @media (min-width: 600px) {
+            #sky-icon { font-size: 4rem; top: 15px; right: 15px; }
         }
 
         body.moonlight #sky-icon {
@@ -66,16 +70,20 @@
 
         header {
             text-align: center;
-            padding: 3rem 1rem 1.5rem;
+            padding: 2.5rem 1rem 1rem;
             background: linear-gradient(rgba(78, 110, 93, 0.15), transparent);
         }
 
         h1 {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             margin: 0.5rem 0;
             color: var(--forest-green);
             text-shadow: 1px 1px rgba(0,0,0,0.1);
             transform: rotate(-1deg);
+        }
+
+        @media (min-width: 600px) {
+            h1 { font-size: 2.2rem; }
         }
 
         .main-content {
@@ -91,15 +99,16 @@
             background: var(--card-bg);
             border: 3px dashed var(--acorn-tan);
             border-radius: 30px 10px 30px 10px;
-            padding: 1.5rem;
+            padding: 1.2rem;
             box-shadow: 5px 5px 0px var(--forest-green);
             transition: all 0.5s ease;
-            backdrop-filter: blur(5px); /* Adds a nice frosted look at night */
+            backdrop-filter: blur(5px);
         }
+        
         body.moonlight .stat-badge {
-            background: var(--acorn-tan); /* Use the moonlight-specific acorn-tan (slate gray) */
+            background: var(--acorn-tan);
             color: #ffffff;
-            border: 1px solid var(--magic-gold); /* Add a little magical glow */
+            border: 1px solid var(--magic-gold);
             box-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
         }
 
@@ -108,13 +117,13 @@
             margin-top: 0;
             border-bottom: 2px dotted rgba(0,0,0,0.1);
             padding-bottom: 5px;
+            font-size: 1.4rem;
         }
 
         body.moonlight h2, body.moonlight h3 {
             border-bottom-color: rgba(255,255,255,0.2);
         }
 
-        /* Toggle Button Style */
         .btn-moonlight {
             background: var(--forest-green);
             color: var(--bg-color);
@@ -125,40 +134,119 @@
             font-weight: bold;
             margin-bottom: 10px;
             transition: all 0.3s;
+            font-size: 0.9rem;
         }
 
-        /* Leaf Animation */
         .leaf { position: fixed; top: -50px; font-size: 24px; z-index: 10; animation: fall linear infinite; cursor: pointer; user-select: none; }
         @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
 
-        /* Gallery Styling */
-        .selfie-gallery { display: flex; overflow-x: auto; gap: 15px; padding: 10px 5px; scrollbar-width: none; }
+        /* Gallery Styling - Enhanced for Mobile */
+        .selfie-gallery { 
+            display: flex; 
+            overflow-x: auto; 
+            gap: 15px; 
+            padding: 20px 10px; 
+            scrollbar-width: none; 
+            -webkit-overflow-scrolling: touch; /* Smooth scroll for iOS */
+        }
         .selfie-gallery::-webkit-scrollbar { display: none; }
+        
         .polaroid { 
-            background: var(--polaroid-bg); /* Changed from 'white' */
+            background: var(--polaroid-bg); 
             border: 3px dashed var(--acorn-tan); 
             border-radius: 20px; 
             padding: 10px; 
-            flex: 0 0 160px; 
+            flex: 0 0 180px; /* Slightly wider for better text fit */
             transform: rotate(var(--r)); 
-            transition: background 0.8s ease; /* Makes the color fade in nicely */
+            transition: background 0.8s ease; 
+            box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
         }
-        .polaroid img { width: 100%; border-radius: 15px; }
+        .polaroid img { width: 100%; border-radius: 15px; height: 140px; object-fit: cover; }
+        .polaroid p { font-size: 0.8rem; margin: 8px 0 0; text-align: center; }
 
         .btn-squeak {
             background: var(--berry-red);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 50px;
+            padding: 30px 60px;
+            border-radius: 100px;
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 1.4rem;
             width: 100%;
             font-weight: bold;
+            box-shadow: 0 6px var(--acorn-tan);
+            margin-bottom: 2rem;
+            transition: transform 0.1s ease;
+        }
+        .btn-squeak:active {
+            transform: translateY(2px);
             box-shadow: 0 4px var(--acorn-tan);
         }
         
-        .stat-badge { background: var(--forest-green); color: white; padding: 6px 12px; border-radius: 15px; font-size: 0.8rem; }
+        .badge-container { display: flex; flex-wrap: wrap; gap: 8px; }
+        .stat-badge { background: var(--forest-green); color: white; padding: 6px 12px; border-radius: 15px; font-size: 0.75rem; }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-top: 2rem;
+            border-top: 2px dashed var(--acorn-tan);
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .footer-links { margin-top: 10px; }
+        .footer-links span { margin: 0 10px; font-size: 1.2rem; cursor: pointer; }
+
+        /* Minigame Styles */
+        .game-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(to bottom, #a8e6cf 0%, #dcedc1 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid var(--forest-green);
+            cursor: crosshair;
+        }
+
+        body.moonlight .game-container {
+            background: linear-gradient(to bottom, #2c3e50 0%, #000000 100%);
+        }
+
+        #player-squirrel {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            font-size: 2.5rem;
+            transform: translateX(-50%);
+            transition: left 0.1s ease-out;
+            user-select: none;
+        }
+
+        .game-nut {
+            position: absolute;
+            font-size: 1.5rem;
+            user-select: none;
+        }
+
+        .game-stats {
+            display: flex;
+            justify-content: space-between;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        #start-game-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+        }
+
+
+
     </style>
 </head>
 <body id="main-body">
@@ -183,12 +271,28 @@
         </section>
 
         <section class="card">
-            <h3>Chester's Squirrel-fies</h3>
+            <h3>Chester's Squirrel-fies 🐿️📸</h3>
             <div class="selfie-gallery">
-                <div class="polaroid" style="--r: -2deg;"><img src="pics/squirrel.jpg" alt="pic"></div>
-                <div class="polaroid" style="--r: 3deg;"><img src="pics/squirrel1.jpg" alt="pic"></div>
-                <div class="polaroid" style="--r: -1deg;"><img src="pics/squirrel2.jpg" alt="pic"></div>
-                <div class="polaroid" style="--r: 2deg;"><img src="pics/squirrel3.jpg" alt="pic"></div>
+                <div class="polaroid" style="--r: -3deg;">
+                    <img src="pics/squirrel4.jpg" alt="Blurry squirrel running">
+                    <p>RUN! Killer is back! 🐕💨🏃‍♂️</p>
+                </div>
+                <div class="polaroid" style="--r: 2deg;">
+                    <img src="pics/squirrel3.jpg" alt="Squirrel looking solemn">
+                    <p>Rest in Peace, Peanut. Gone but not forgotten 🪦😔 #GoneTooSoon</p>
+                </div>
+                <div class="polaroid" style="--r: -2deg;">
+                    <img src="pics/squirrel.jpg" alt="Squirrel at sunset">
+                    <p>Catching that golden hour glow ✨🧡</p>
+                </div>
+                <div class="polaroid" style="--r: 3deg;">
+                    <img src="pics/squirrel1.jpg" alt="Squirrel in a tree">
+                    <p>Home sweet nest 🏡🌳 #Chilln</p>
+                </div>
+                <div class="polaroid" style="--r: -1deg;">
+                    <img src="pics/squirrel2.jpg" alt="Squirrel eating seeds">
+                    <p>Mission Impossible: Bird Feeder Edition 🥜🕵️‍♂️</p>
+                </div> 
             </div>
         </section>
 
@@ -202,9 +306,24 @@
             </div>
         </section>
 
+        <section class="card" id="minigame-section">
+            <h3>Acorn Harvest Dash 🏃‍♂️🌰</h3>
+            <div class="game-stats">
+                <span>Score: <span id="game-score">0</span></span>
+                <span>High Score: <span id="high-score">0</span></span>
+            </div>
+            <div class="game-container" id="game-area">
+                <button id="start-game-btn" class="btn-moonlight" onclick="startGame()">Start Game</button>
+                <div id="player-squirrel">🐿️</div>
+            </div>
+            <p style="font-size: 0.8rem; text-align: center; margin-top: 10px;">
+                Click/Tap sides to move or use Arrow Keys!
+            </p>
+        </section>
+
         <section class="card">
             <h3>The Daily To-Do</h3>
-            <ul class="daily-list" style="list-style-type: '🌰 '; line-height: 1.8;">
+            <ul class="daily-list" style="list-style-type: '🌰 '; line-height: 1.8; padding-left: 1.5rem;">
                 <li>Polish the Silver Acorn</li>
                 <li>Debate with a Grumpy Owl</li>
                 <li>Mandatory Nap</li>
@@ -214,7 +333,107 @@
         <button class="btn-squeak" onclick="alert('Squeak! Chester is currently busy burying secrets. Check back later!')">SEND A SQUEAK</button>
     </main>
 
+    <footer>
+        <p>© 2026 Whispering Woods Library. All nuts reserved. <br> Stay bright and bushy-tailed! </p>
+        <div class="footer-links">
+            <span title="Pinecone Twitter">🌲</span>
+            <span title="Branch Instagram">🌿</span>
+            <span title="Log Facebook">🪵</span>
+        </div>
+        <p style="font-size: 0.7rem; margin-top: 15px;">No squirrels were over-caffeinated in the making of this site.</p>
+    </footer>
+
     <script>
+        let gameActive = false;
+        let gameScore = 0;
+        let highScore = 0;
+        let playerPos = 50; // Percentage
+
+        // Keyboard Controls
+        document.addEventListener('keydown', (e) => {
+            if (!gameActive) return;
+            if (e.key === 'ArrowLeft') movePlayer(-10);
+            if (e.key === 'ArrowRight') movePlayer(10);
+        });
+
+        // Click/Tap Controls
+        document.getElementById('game-area').addEventListener('click', (e) => {
+            if (!gameActive) return;
+            const rect = e.currentTarget.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            if (x < rect.width / 2) movePlayer(-15);
+            else movePlayer(15);
+        });
+
+        function movePlayer(delta) {
+            playerPos = Math.max(5, Math.min(95, playerPos + delta));
+            document.getElementById('player-squirrel').style.left = playerPos + '%';
+        }
+
+        function startGame() {
+            gameActive = true;
+            gameScore = 0;
+            document.getElementById('game-score').innerText = "0";
+            document.getElementById('start-game-btn').style.display = 'none';
+            spawnGameNut();
+        }
+
+        function spawnGameNut() {
+            if (!gameActive) return;
+
+            const nut = document.createElement('div');
+            nut.className = 'game-nut';
+            nut.innerText = '🌰';
+            const startX = Math.random() * 90 + 5;
+            nut.style.left = startX + '%';
+            nut.style.top = '-30px';
+            document.getElementById('game-area').appendChild(nut);
+
+            let fallPos = -30;
+            const fallInterval = setInterval(() => {
+                fallPos += 4; // Speed
+                nut.style.top = fallPos + 'px';
+
+                // Check Collision
+                if (fallPos > 250 && fallPos < 280) {
+                    const nutX = parseFloat(nut.style.left);
+                    if (Math.abs(nutX - playerPos) < 12) {
+                        gameScore++;
+                        document.getElementById('game-score').innerText = gameScore;
+                        nutCount++; // Sync with your main counter!
+                        document.getElementById('nut-stash').innerText = nutCount;
+                        clearInterval(fallInterval);
+                        nut.remove();
+                    }
+                }
+
+                // Game Over (Missed)
+                if (fallPos > 300) {
+                    clearInterval(fallInterval);
+                    nut.remove();
+                    endGame();
+                }
+            }, 20);
+
+            // Difficulty ramp: Spawn next nut faster as score increases
+            const nextSpawn = Math.max(400, 1000 - (gameScore * 20));
+            setTimeout(spawnGameNut, nextSpawn);
+        }
+
+        function endGame() {
+            gameActive = false;
+            if (gameScore > highScore) {
+                highScore = gameScore;
+                document.getElementById('high-score').innerText = highScore;
+            }
+            const startBtn = document.getElementById('start-game-btn');
+            startBtn.innerText = "Try Again! (Final: " + gameScore + ")";
+            startBtn.style.display = 'block';
+            
+            // Clear any remaining nuts
+            const nuts = document.querySelectorAll('.game-nut');
+            nuts.forEach(n => n.remove());
+        }
         let nutCount = 0;
 
         function toggleMoonlight() {
@@ -230,6 +449,8 @@
                 skyIcon.innerText = "☀️";
             }
         }
+
+        
         function createLeaf() {
             const emojis = ['🍂', '🍃', '🍁', '🌰'];
             const leaf = document.createElement('div');
@@ -239,11 +460,24 @@
             const emoji = emojis[Math.floor(Math.random() * emojis.length)];
             leaf.innerText = emoji;
             leaf.onclick = () => {
+                // 1. Get the audio element
+                const sound = document.getElementById('crunch-sound');
+                
+                // 2. Reset sound to start (in case user clicks fast)
+                sound.currentTime = 0; 
+                
+                // 3. Play the sound
+                sound.play();
+
                 if (emoji === '🌰') {
                     nutCount++;
                     document.getElementById('nut-stash').innerText = nutCount;
                 }
-                leaf.remove();
+                
+                // Add a little visual feedback before removing
+                leaf.style.transform = 'scale(1.5)';
+                leaf.style.opacity = '0';
+                setTimeout(() => leaf.remove(), 100);
             };
             document.body.appendChild(leaf);
             setTimeout(() => leaf.remove(), 7000);
@@ -256,5 +490,7 @@
             if (hour >= 18 || hour < 6) toggleMoonlight();
         };
     </script>
+
+    <audio id="crunch-sound" src="audio/pop.mp3" preload="auto"></audio>
 </body>
 </html>
